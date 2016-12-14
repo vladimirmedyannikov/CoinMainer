@@ -1,3 +1,22 @@
 <resources>
   <string name="app_name">Coin Mainer</string>
+  <string name="score">Score:</string>
+  <string name="time">Time:</string>
+  <string name="ten_points">Wow! 10 points!</string>
+  <string name="hundred_points"> Cool! 100 points!</string>
+  <string name="three_hundred_points">Incredibly, go! 300 points!</string>
+
+  <string name="four_hundred_points">400 points! You can do better!</string>
+  <string name="six_hundred_points">Pull devil! 600 points!</string>
+  <string name="ninenine_hundred_points">Here is the result! 999 points!</string>
+  <string name="two_thousand_points">The finger will not fall off? 2000 points!</string>
+  <string name="three_thousand_points">Are you human? What is the result! 3000 points!</string>
+  <string name="five_thousand_points">This is a combo! 5000 points!</string>
+  <string name="six_thousand_points">Incredibly, go! 6000 points!</string>
+  <string name="ten_thousand_points">Incredibly, go! 10000 points!</string>
+
+  <string name="exit_question">Are you sure you want to quit?</string>
+  <string name="yes">Yes</string>
+  <string name="no">No</string>
+  <string name="exit">Exit</string>
 </resources>

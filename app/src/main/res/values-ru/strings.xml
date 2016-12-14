@@ -1,0 +1,20 @@
+<resources>
+  <string name="app_name">Coin Mainer</string>
+  <string name="score">Счет:</string>
+  <string name="time">Время:</string>
+  <string name="ten_points">Вот это да! 10 очков!</string>
+  <string name="hundred_points">Круто! 100 очков!</string>
+  <string name="three_hundred_points">Невероятно, продолжай! 300 очков!</string>
+  <string name="four_hundred_points">400 очков! Ты можешь лучше !</string>
+  <string name="six_hundred_points">Поднажми! 600 очков!</string>
+  <string name="ninenine_hundred_points">Вот это результат! 999 очков!</string>
+  <string name="two_thousand_points">Палец не отсох? 2000 очков!</string>
+  <string name="three_thousand_points">Человек ли ты? Каков результат! 3000 очков!</string>
+  <string name="five_thousand_points">Вот это комбо! 5000 очков!</string>
+  <string name="six_thousand_points">Невероятно, продолжай! 6000 очков!</string>
+  <string name="ten_thousand_points">Невероятно, продолжай! 10000 очков!</string>
+  <string name="exit_question">Вы действительно хотите выйти?</string>
+  <string name="yes">Да</string>
+  <string name="no">Нет</string>
+  <string name="exit">Выход</string>
+</resources>

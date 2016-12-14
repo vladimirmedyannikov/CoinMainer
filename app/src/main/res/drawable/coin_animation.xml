@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:duration="25"><bitmap android:src="@drawable/png0" android:filter="true" android:antialias="true"/></item>
+  <item android:duration="25"><bitmap android:src="@drawable/png1" android:filter="true" android:antialias="true"/></item>
+  <item android:duration="25"><bitmap android:src="@drawable/png2" android:filter="true" android:antialias="true"/></item>
+  <item android:duration="25"><bitmap android:src="@drawable/png3" android:filter="true" android:antialias="true"/></item>
+  <item android:duration="25"><bitmap android:src="@drawable/png4" android:filter="true" android:antialias="true"/></item>
+  <item android:duration="25"><bitmap android:src="@drawable/png5" android:filter="true" android:antialias="true"/></item>
+  <item android:duration="25"><bitmap android:src="@drawable/png6" android:filter="true" android:antialias="true"/></item>
+  <item android:duration="25"><bitmap android:src="@drawable/png7" android:filter="true" android:antialias="true"/></item>
+  <item android:duration="25"><bitmap android:src="@drawable/png8" android:filter="true" android:antialias="true"/></item>
+  <item android:duration="25"><bitmap android:src="@drawable/png9" android:filter="true" android:antialias="true"/></item>
+</animation-list>
