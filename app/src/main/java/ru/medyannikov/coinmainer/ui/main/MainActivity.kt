@@ -1,6 +1,5 @@
 package ru.medyannikov.coinmainer.ui.main
 
-import android.app.AlertDialog
 import android.graphics.drawable.AnimationDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -10,21 +9,19 @@ import android.support.v4.content.ContextCompat
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import android.view.animation.OvershootInterpolator
+import android.widget.Chronometer
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.TextView
 import butterknife.BindView
 import butterknife.OnTouch
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.find
 import ru.medyannikov.coinmainer.R
 import ru.medyannikov.coinmainer.ui.base.BaseActivity
 import java.util.*
-import android.view.animation.LinearInterpolator
-import android.widget.Chronometer
-import android.widget.TextView
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.onChronometerTick
-import org.jetbrains.anko.toast
 
 
 class MainActivity : BaseActivity() {

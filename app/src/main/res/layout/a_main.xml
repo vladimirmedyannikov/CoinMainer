@@ -10,7 +10,7 @@
   <ImageView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:src="@drawable/background"
+      android:src="@drawable/back_city"
       android:scaleType="centerCrop"
       />
   <LinearLayout
@@ -85,7 +85,7 @@
       android:id="@+id/android_image2"
       android:layout_width="150dp"
       android:layout_height="150dp"
-      android:src="@drawable/button_crops"
+      android:src="@drawable/button_crops_radius"
       android:layout_gravity="center"
       />
 
