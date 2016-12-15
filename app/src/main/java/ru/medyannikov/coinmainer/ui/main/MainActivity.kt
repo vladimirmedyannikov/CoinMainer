@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
 import android.view.animation.LinearInterpolator
 import android.view.animation.OvershootInterpolator
 import android.widget.Chronometer
@@ -21,6 +22,7 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.find
 import ru.medyannikov.coinmainer.R
 import ru.medyannikov.coinmainer.ui.base.BaseActivity
+import ru.medyannikov.coinmainer.ui.main.views.GameTextView
 import java.util.*
 
 
@@ -38,11 +40,10 @@ class MainActivity : BaseActivity() {
   @BindView(R.id.timeNum)
   lateinit var chronometer: Chronometer
 
-  val rootView: ViewGroup by lazy { find<FrameLayout>(R.id.root_main) }
+  val rootView: ViewGroup by lazy { find<FrameLayout>(R.id.animation_main) }
   val easterRandom = Random()
   var countScore = 0
   val mediaPlayerMusic: MediaPlayer by lazy { MediaPlayer.create(this, R.raw.main_music) }
-
 
   override fun getLayout() = R.layout.a_main
 
@@ -102,12 +103,18 @@ class MainActivity : BaseActivity() {
   @OnTouch(R.id.android_image)
   fun onLogoTouched(v: View, e: MotionEvent): Boolean {
     if (e.actionMasked == MotionEvent.ACTION_DOWN) {
-      v.rotationY = MathUtils.lerp(MathUtils.clamp(e.x / v.width, 0f, 1f), - 2f, 2f)
-      v.rotationX = MathUtils.lerp(MathUtils.clamp(e.y / v.height, 0f, 1f), 22f, 20f)
+      v.rotationY = MathUtils.lerp(MathUtils.clamp(e.x / v.width, 0f, 1f), - 8f, 8f)
+      v.rotationX = MathUtils.lerp(MathUtils.clamp(e.y / v.height, 0f, 1f), 22f, 22f)
       v.scaleX = 1f
       v.scaleY = 1f
       spawnCoin(v.left + e.x.toInt(), v.top + e.y.toInt())
-      v.animate().scaleX(1f).scaleY(1f).rotationX(0f).rotationY(0f).duration = 200
+      v.animate().scaleX(1f).scaleY(1f).rotationX(0f).rotationY(0f).setInterpolator(BounceInterpolator()).duration = 200
+      rootView.scaleY = 1.05f
+      rootView.scaleX = 1.05f
+      rootView.animate().scaleX(1f).scaleY(1f).setDuration(150).setInterpolator(BounceInterpolator())
+          .withEndAction {
+
+      }
     }
     return true
   }
@@ -137,10 +144,33 @@ class MainActivity : BaseActivity() {
           .xBy((easterRandom.nextInt(20) - 10) * scale)
           .setInterpolator(OvershootInterpolator())
           .withEndAction {
-            rootView.removeView(imageView)
+            if (! isFinishing) {
+              showScore(imageView.x.toInt(), imageView.y.toInt())
+              rootView.removeView(imageView)
+            }
           }
     }
     updateScore(1)
+  }
+
+  fun showScore(x: Int, y: Int) {
+    val textScore = GameTextView(this, null)
+    textScore.text = "+1"
+    val scale = resources.displayMetrics.density
+    textScore.layoutParams = FrameLayout.LayoutParams((32 * scale).toInt(), (32 * scale).toInt())
+    rootView.addView(textScore)
+    textScore.visibility = View.INVISIBLE
+
+    Handler().post {
+      textScore.visibility = View.VISIBLE
+      textScore.x = x.toFloat()
+      textScore.y = y.toFloat()
+      textScore.animate()
+          .setDuration(500)
+          .yBy(- 25 * scale)
+          .setInterpolator(LinearInterpolator())
+          .withEndAction { rootView.removeView(textScore) }
+    }
   }
 
   private fun updateScore(i: Int) {
@@ -179,8 +209,10 @@ class MainActivity : BaseActivity() {
         .setDuration(3000)
         .setInterpolator(LinearInterpolator())
         .withEndAction {
-          description.alpha = 1f
-          description.visibility = View.GONE
+          if (! isFinishing) {
+            description.alpha = 1f
+            description.visibility = View.GONE
+          }
         }
   }
 }
