@@ -10,7 +10,7 @@
       android:theme="@style/AppTheme"
       >
     <activity
-        android:name=".ui.main.MainActivity"
+        android:name=".ui.menu.MainMenu"
         android:screenOrientation="portrait"
         >
       <intent-filter>
@@ -18,6 +18,8 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    <activity android:name=".ui.main.MainActivity" android:screenOrientation="portrait"/>
+    <service android:name=".service.MusicService" android:enabled="true"/>
   </application>
 
 </manifest>

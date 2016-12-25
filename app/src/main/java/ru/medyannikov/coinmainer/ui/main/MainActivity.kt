@@ -1,5 +1,6 @@
 package ru.medyannikov.coinmainer.ui.main
 
+import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -17,12 +18,17 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
-import butterknife.OnTouch
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.find
+import com.squareup.seismic.ShakeDetector
+import com.squareup.seismic.ShakeDetector.SENSITIVITY_LIGHT
+import org.jetbrains.anko.*
 import ru.medyannikov.coinmainer.R
+import ru.medyannikov.coinmainer.service.MusicService
 import ru.medyannikov.coinmainer.ui.base.BaseActivity
 import ru.medyannikov.coinmainer.ui.main.views.GameTextView
+import ru.medyannikov.coinmainer.ui.menu.MainMenu.Companion.GAME_MODE_EXTRAS
+import ru.medyannikov.coinmainer.ui.menu.MainMenu.GAME_MODE
+import ru.medyannikov.coinmainer.ui.utils.hide
+import ru.medyannikov.coinmainer.ui.utils.show
 import java.util.*
 
 
@@ -31,11 +37,17 @@ class MainActivity : BaseActivity() {
   @BindView(R.id.android_image)
   lateinit var imageView: ImageView
 
+  @BindView(R.id.android_image2)
+  lateinit var imageViewBottom: ImageView
+
   @BindView(R.id.textDescription)
   lateinit var description: TextView
 
   @BindView(R.id.scoreNum)
   lateinit var score: TextView
+
+  @BindView(R.id.shake_text)
+  lateinit var shakeText: TextView
 
   @BindView(R.id.timeNum)
   lateinit var chronometer: Chronometer
@@ -43,7 +55,6 @@ class MainActivity : BaseActivity() {
   val rootView: ViewGroup by lazy { find<FrameLayout>(R.id.animation_main) }
   val easterRandom = Random()
   var countScore = 0
-  val mediaPlayerMusic: MediaPlayer by lazy { MediaPlayer.create(this, R.raw.main_music) }
 
   override fun getLayout() = R.layout.a_main
 
@@ -53,33 +64,49 @@ class MainActivity : BaseActivity() {
     initTimer()
   }
 
+  private val shakeDetector: ShakeDetector by lazy {
+    ShakeDetector(ShakeDetector.Listener {
+      spawn(shakeText, easterRandom.nextInt(shakeText.width).toFloat(),
+          easterRandom.nextInt(shakeText.height).toFloat())
+    })
+  }
+
   override fun onStart() {
     super.onStart()
     initMusic()
+    if (gameMode == GAME_MODE.SHAKE) {
+      shakeDetector.setSensitivity(SENSITIVITY_LIGHT)
+      shakeDetector.start(sensorManager)
+      imageViewBottom.hide()
+      imageView.hide()
+      shakeText.show()
+    } else {
+      imageViewBottom.show()
+      imageView.show()
+      imageView.onTouch { view, event ->
+        if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+          spawn(view, event.x, event.y)
+        }
+        true
+      }
+      shakeText.hide()
+    }
   }
 
-  private var mediaLength: Int = 0
-
   override fun onPause() {
-    if (mediaPlayerMusic.isPlaying) {
-      mediaPlayerMusic.pause()
-      mediaLength = mediaPlayerMusic.currentPosition
-    }
+    stopService(Intent(this, MusicService::class.java))
+    shakeDetector.stop()
     chronometer.post { chronometer.stop() }
     super.onPause()
   }
 
   override fun onResume() {
     super.onResume()
-    mediaPlayerMusic.seekTo(mediaLength)
-    mediaPlayerMusic.start()
     chronometer.post { chronometer.start() }
   }
 
   override fun onDestroy() {
     super.onDestroy()
-    mediaPlayerMusic.stop()
-    mediaPlayerMusic.release()
   }
 
   override fun onBackPressed() {
@@ -92,31 +119,27 @@ class MainActivity : BaseActivity() {
   }
 
   private fun initMusic() {
-    mediaPlayerMusic.isLooping = true
-    mediaPlayerMusic.start()
+    startService<MusicService>()
   }
+
+  private var gameMode: GAME_MODE = GAME_MODE.CLASSIC
 
   private fun initViews() {
     updateScore(0)
+    gameMode = intent.extras.getSerializable(GAME_MODE_EXTRAS) as GAME_MODE
   }
 
-  @OnTouch(R.id.android_image)
-  fun onLogoTouched(v: View, e: MotionEvent): Boolean {
-    if (e.actionMasked == MotionEvent.ACTION_DOWN) {
-      v.rotationY = MathUtils.lerp(MathUtils.clamp(e.x / v.width, 0f, 1f), - 8f, 8f)
-      v.rotationX = MathUtils.lerp(MathUtils.clamp(e.y / v.height, 0f, 1f), 22f, 22f)
-      v.scaleX = 1f
-      v.scaleY = 1f
-      spawnCoin(v.left + e.x.toInt(), v.top + e.y.toInt())
-      v.animate().scaleX(1f).scaleY(1f).rotationX(0f).rotationY(0f).setInterpolator(BounceInterpolator()).duration = 200
-      rootView.scaleY = 1.05f
-      rootView.scaleX = 1.05f
-      rootView.animate().scaleX(1f).scaleY(1f).setDuration(150).setInterpolator(BounceInterpolator())
-          .withEndAction {
-
-      }
-    }
-    return true
+  fun spawn(v: View, x: Float, y: Float) {
+    v.rotationY = MathUtils.lerp(MathUtils.clamp(x / v.width, 0f, 1f), - 8f, 8f)
+    v.rotationX = MathUtils.lerp(MathUtils.clamp(y / v.height, 0f, 1f), 22f, 22f)
+    v.scaleX = 1f
+    v.scaleY = 1f
+    spawnCoin(v.left + x.toInt(), v.top + y.toInt())
+    v.animate().scaleX(1f).scaleY(1f).rotationX(0f).rotationY(0f).duration = 200
+    rootView.scaleY = 1.05f
+    rootView.scaleX = 1.05f
+    rootView.animate().scaleX(1f).scaleY(1f).setDuration(150).setInterpolator(BounceInterpolator())
+        .withEndAction {}
   }
 
   private fun spawnCoin(x: Int, y: Int) {

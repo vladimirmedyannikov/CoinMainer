@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    >
+>
 
   <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
       android:id="@+id/animation_main"
@@ -13,21 +13,21 @@
       android:layout_height="match_parent"
       android:gravity="center"
       android:orientation="vertical"
-      >
+  >
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/back_city_3"
-        />
+        android:src="@drawable/back_city"
+    />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left|top"
         android:orientation="horizontal"
-        >
+    >
 
       <ru.medyannikov.coinmainer.ui.main.views.GameTextView
           android:id="@+id/time"
@@ -39,7 +39,7 @@
           android:text="@string/time"
           android:textColor="@android:color/black"
           android:textSize="18sp"
-          />
+      />
 
       <ru.medyannikov.coinmainer.ui.main.views.GameChronometer
           android:id="@+id/timeNum"
@@ -48,7 +48,7 @@
           android:layout_gravity="center_vertical"
           android:layout_margin="8dp"
           android:textSize="18sp"
-          />
+      />
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +57,7 @@
         android:layout_gravity="right|top"
         android:orientation="horizontal"
         android:padding="8dp"
-        >
+    >
 
       <ru.medyannikov.coinmainer.ui.main.views.GameTextView
           android:id="@+id/score"
@@ -68,7 +68,7 @@
           android:text="@string/score"
           android:textColor="@android:color/black"
           android:textSize="18sp"
-          />
+      />
 
       <ru.medyannikov.coinmainer.ui.main.views.GameTextView
           android:id="@+id/scoreNum"
@@ -79,8 +79,9 @@
           android:paddingStart="8dp"
           android:textColor="@android:color/black"
           android:textSize="18sp"
-          />
+      />
     </LinearLayout>
+
 
     <ImageView
         android:id="@+id/android_image2"
@@ -88,7 +89,7 @@
         android:layout_height="150dp"
         android:layout_gravity="center"
         android:src="@drawable/button_crops_radius_1"
-        />
+    />
 
     <ImageView
         android:id="@+id/android_image"
@@ -96,7 +97,17 @@
         android:layout_height="150dp"
         android:layout_gravity="center"
         android:src="@drawable/button_1"
-        />
+    />
+    <ru.medyannikov.coinmainer.ui.main.views.GameTextView
+        android:id="@+id/shake_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="36sp"
+        android:textColor="@android:color/white"
+        android:padding="32dp"
+        android:text="@string/shake_me"/>
 
   </FrameLayout>
   <ru.medyannikov.coinmainer.ui.main.views.GameTextView
@@ -112,5 +123,5 @@
       android:textColor="@android:color/black"
       android:textSize="24sp"
       android:visibility="gone"
-      />
+  />
 </FrameLayout>

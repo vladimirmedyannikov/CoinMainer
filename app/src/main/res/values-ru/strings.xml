@@ -17,4 +17,5 @@
   <string name="yes">Да</string>
   <string name="no">Нет</string>
   <string name="exit">Выход</string>
+  <string name="shake_me">Встряхни телефон !!!</string>
 </resources>

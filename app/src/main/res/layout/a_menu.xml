@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_city">
+
+  <ru.medyannikov.coinmainer.ui.main.views.GameTextView
+      android:id="@+id/game_text"
+      android:layout_marginTop="32dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:padding="24dp"
+      android:textSize="36sp"
+      android:textColor="@android:color/white"
+      android:text="Coin mainer"/>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:orientation="vertical"
+      android:gravity="center">
+
+    <ru.medyannikov.coinmainer.ui.main.views.GameTextView
+        android:id="@+id/classic_mainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="24dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/selector_button"
+        android:text="Classic mainer"/>
+
+    <ru.medyannikov.coinmainer.ui.main.views.GameTextView
+        android:id="@+id/shake_mainer"
+        android:layout_marginTop="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="24dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/selector_button"
+        android:text="Shake mainer"/>
+
+  </LinearLayout>
+
+</LinearLayout>
